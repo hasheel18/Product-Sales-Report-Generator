@@ -1,0 +1,6 @@
+product_id, product_name, category, quantity_sold, unit_price
+P001, Wireless Mouse, Electronics, 12, 25.50
+P002, Notebook, Stationery, 35, 3.75
+P003, USB Hub, Electronics, 8, 18.00
+P004, Ballpoint Pen, Stationery, 100, 0.50
+P005, HDMI Cable, Electronics, 20, 12.00
