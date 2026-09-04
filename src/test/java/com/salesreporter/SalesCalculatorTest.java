@@ -46,4 +46,18 @@ class SalesCalculatorTest {
         SalesSummary summary = calculator.calculate(products);
         assertEquals(871.25, summary.getGrandTotalRevenue(), 0.001);
     }
+
+    @Test
+    void detectsBestSellingProductByQuantity() {
+        SalesSummary summary = calculator.calculate(products);
+        assertEquals("Ballpoint Pen", summary.getBestSellingProduct().getProductName());
+        assertEquals(100, summary.getBestSellingProduct().getQuantitySold());
+    }
+
+    @Test
+    void detectsHighestRevenueProduct() {
+        SalesSummary summary = calculator.calculate(products);
+        assertEquals("Wireless Mouse", summary.getHighestRevenueProduct().getProductName());
+        assertEquals(306.00, summary.getHighestRevenueProduct().getRevenue(), 0.001);
+    }
 }
