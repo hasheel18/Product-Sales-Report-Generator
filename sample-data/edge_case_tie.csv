@@ -1,0 +1,4 @@
+product_id, product_name, category, quantity_sold, unit_price
+P001, OTG Adapter, Electronics, 50, 10.00
+P002, Book, Stationery, 50, 5.00
+P003, Led Strip, Electronics, 30, 20.00
