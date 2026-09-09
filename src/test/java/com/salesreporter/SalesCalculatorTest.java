@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SalesCalculatorTest {
 
@@ -30,6 +30,14 @@ class SalesCalculatorTest {
     @Test
     void calculatesRevenuePerProductCorrectly() {
         SalesSummary summary = calculator.calculate(products);
+
+        for (Product p : products) {
+            double expectedRevenue = p.getQuantitySold() * p.getUnitPrice();
+            assertEquals(expectedRevenue, summary.getRevenuePerProduct().get(p), 0.001,
+                    "Revenue mismatch for " + p.getProductName());
+        }
+
+        // Spot check against assignment example: Wireless Mouse -> $306.00
         Product mouse = products.get(0);
         assertEquals(306.00, summary.getRevenuePerProduct().get(mouse), 0.001);
     }
@@ -37,7 +45,11 @@ class SalesCalculatorTest {
     @Test
     void calculatesRevenuePerCategoryCorrectly() {
         SalesSummary summary = calculator.calculate(products);
+
+        // Electronics: 306.00 + 144.00 + 240.00 = 690.00
         assertEquals(690.00, summary.getRevenuePerCategory().get("Electronics"), 0.001);
+
+        // Stationery: 131.25 + 50.00 = 181.25
         assertEquals(181.25, summary.getRevenuePerCategory().get("Stationery"), 0.001);
     }
 
@@ -59,5 +71,25 @@ class SalesCalculatorTest {
         SalesSummary summary = calculator.calculate(products);
         assertEquals("Wireless Mouse", summary.getHighestRevenueProduct().getProductName());
         assertEquals(306.00, summary.getHighestRevenueProduct().getRevenue(), 0.001);
+    }
+
+    @Test
+    void singleProductListIsHandledCorrectly() {
+        List<Product> single = List.of(new Product("P099", "Solo Item", "Misc", 5, 10.0));
+        SalesSummary summary = calculator.calculate(single);
+
+        assertEquals("Solo Item", summary.getBestSellingProduct().getProductName());
+        assertEquals("Solo Item", summary.getHighestRevenueProduct().getProductName());
+        assertEquals(50.0, summary.getGrandTotalRevenue(), 0.001);
+    }
+
+    @Test
+    void throwsExceptionForEmptyProductList() {
+        assertThrows(IllegalArgumentException.class, () -> calculator.calculate(List.of()));
+    }
+
+    @Test
+    void throwsExceptionForNullProductList() {
+        assertThrows(IllegalArgumentException.class, () -> calculator.calculate(null));
     }
 }
