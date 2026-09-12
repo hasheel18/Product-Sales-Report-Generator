@@ -70,6 +70,7 @@ Unit tests cover:
 | `formatter`  | `ReportFormatter` — turns a `SalesSummary` into display text           |
 | `output`     | `ReportOutput` strategy interface, `ConsoleReportOutput`, `FileReportOutput`, `ReportOutputFactory` |
 | `exception`  | Custom checked exceptions for CSV and output-method errors             |
+| `service`    | Dependency Inversion by introducing the `SalesReportService` class     |
 
 **Extensibility:** Adding a new output method (e.g. email) only requires a
 new class implementing `ReportOutput` and one new case in
